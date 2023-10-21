@@ -5,7 +5,7 @@ sequenceDiagram
     
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
     activate server
-    server-->>browser: Acknowledgement code: 302 Found
+    server-->>browser: Acknowledgement code 302 Found
     deactivate server
 
     Note right of browser: After this the page reloads all notes like in the example
