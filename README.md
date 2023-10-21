@@ -1,1 +1,1 @@
-# FullStack-websovelluskehitys 2023
+# Full Stack -websovelluskehitys 2023
