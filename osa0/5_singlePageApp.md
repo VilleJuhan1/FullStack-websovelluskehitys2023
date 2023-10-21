@@ -2,6 +2,7 @@
     sequenceDiagram
     participant browser
     participant server
+    Note right of browser: This is exactly like in the previous version and the example, except for the different URLs
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
     activate server
     server-->>browser: HTML document
