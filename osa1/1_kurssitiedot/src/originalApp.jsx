@@ -13,28 +13,27 @@ const Part = (props) => {
   console.log(props)
   return (
     <div>
-      <p>{props.name} {props.exercises}</p>
+      <p>{props.name} {props.work}</p>
     </div>
   )
 }
 
 // Iterates through every exercise in the course
 const Content = (props) => {
-  console.log(props);
+  console.log(props)
   return (
     <div>
-      {props.ex.map((object, index) => (
-        <Part key={index} name={object.name} exercises={object.exercises} />
+      {props.ex.map((tuple, index) => (
+        <Part key={index} name={tuple[0]} work={tuple[1]} />
       ))}
     </div>
-  );
-};
-
+  )
+}
 
 // Accumulate the total amount of exercises
 const Total = (props) => {
   console.log(props)
-  const total = props.ex.reduce((accumulator, object) => accumulator + object.exercises, 0)
+  const total = props.ex.reduce((accumulator, tuple) => accumulator + tuple[1], 0)
   return (
     <div>
       <p>Number of exercises {total}</p>
@@ -44,20 +43,13 @@ const Total = (props) => {
 
 const App = () => {
   const course = 'Half Stack application development'
-  const part1 = {
-    name: 'Fundamentals of React',
-    exercises: 10
-  }
-  const part2 = {
-    name: 'Using props to pass data',
-    exercises: 7
-  }
-  const part3 = {
-    name: 'State of a component',
-    exercises: 14
-  }
-  const exercises = [part1, part2, part3]
-
+  const part1 = 'Fundamentals of React'
+  const exercises1 = 10
+  const part2 = 'Using props to pass data'
+  const exercises2 = 7
+  const part3 = 'State of a component'
+  const exercises3 = 14
+  const exercises = [[part1, exercises1], [part2, exercises2], [part3, exercises3]]
 
   return (
     <div>
