@@ -8,6 +8,20 @@ const Button = (props) => {
   )
 }
 
+const TheyDidTheMath = (props) => {
+  console.log(props);
+  const sum = props.luvut.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+  const avg = ((props.luvut[0] * 1 + props.luvut[2] * (-1)) / sum)
+  const pos = props.luvut[0] / sum * 100
+  return (
+    <div>
+      <p>All {sum}</p>
+      <p>Average {avg}</p>
+      <p>Positive {pos} %</p>
+    </div>
+  )
+}
+
 const App = () => {
   // tallenna napit omaan tilaansa
   const [good, setGood] = useState(0)
@@ -25,7 +39,7 @@ const App = () => {
   }
 
   const increaseBad = () => {
-    console.log('adding a neutral comment, now', (bad + 1))
+    console.log('adding a bad comment, now', (bad + 1))
     setBad(bad + 1)    
   }
 
@@ -39,6 +53,7 @@ const App = () => {
       <p>Good {good}</p>
       <p>Neutral {neutral}</p>
       <p>Bad {bad}</p>
+      <TheyDidTheMath luvut = {[good, neutral, bad]}/>
     </div>
   )
 }
