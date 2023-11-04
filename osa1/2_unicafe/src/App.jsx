@@ -31,9 +31,14 @@ const App = () => {
 
   return (
     <div>
+      <h1>Give feedback!</h1>
       <Button handleClick={increaseGood} text="Good"/>
       <Button handleClick={increaseNeutral} text="Neutral"/>
       <Button handleClick={increaseBad} text="Bad"/>
+      <h2>Statistics</h2>
+      <p>Good {good}</p>
+      <p>Neutral {neutral}</p>
+      <p>Bad {bad}</p>
     </div>
   )
 }
