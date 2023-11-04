@@ -8,10 +8,19 @@ const Button = (props) => {
   )
 }
 
+const StatisticsLine = (props) => {
+  console.log("Creating a statistics line", props.text, props.value)
+  return (
+    <div>
+      <p>{props.text} {props.value}</p>
+    </div>
+  )
+}
+
 // Tehtävänannossa komponentin nimi on Statistics
 const TheyDidTheMath = (props) => {
-  console.log(props);
-  const sum = props.luvut.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+  console.log("Doing 'the math' with", props);
+  const sum = props.values.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
 
   if (sum === 0) {
     return (
@@ -19,21 +28,21 @@ const TheyDidTheMath = (props) => {
         <h2>Statistics</h2>
         <p>No feedback given</p>
       </div>
-    );
+    )
   }
 
-  const avg = ((props.luvut[0] * 1 + props.luvut[2] * (-1)) / sum)
-  const pos = (props.luvut[0] / sum * 100)
-  
+  const avg = ((props.values[0] * 1 + props.values[2] * (-1)) / sum)
+  const pos = (props.values[0] / sum * 100)
+
   return (
     <div>
       <h2>Statistics</h2>
-      <p>Good {props.luvut[0]}</p>
-      <p>Neutral {props.luvut[1]}</p>
-      <p>Bad {props.luvut[2]}</p>
-      <p>All {sum}</p>
-      <p>Average {avg}</p>
-      <p>Positive {pos} %</p>
+      <StatisticsLine text = "Good" value = {props.values[0]}/>
+      <StatisticsLine text = "Neutral" value = {props.values[1]}/>
+      <StatisticsLine text = "Bad" value = {props.values[2]}/>
+      <StatisticsLine text = "All" value = {sum}/>
+      <StatisticsLine text = "Average" value = {avg}/>
+      <StatisticsLine text = "Positive" value = {pos}/>
     </div>
   )
 }
@@ -65,7 +74,7 @@ const App = () => {
       <Button handleClick={increaseGood} text="Good"/>
       <Button handleClick={increaseNeutral} text="Neutral"/>
       <Button handleClick={increaseBad} text="Bad"/>
-      <TheyDidTheMath luvut = {[good, neutral, bad]}/>
+      <TheyDidTheMath values = {[good, neutral, bad]}/>
     </div>
   )
 }
