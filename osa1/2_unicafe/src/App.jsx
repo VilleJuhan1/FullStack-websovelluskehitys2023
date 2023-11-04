@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+// Komponentti painikkeille
 const Button = (props) => {
   return (
     <button onClick={props.handleClick}>
@@ -8,16 +9,19 @@ const Button = (props) => {
   )
 }
 
+// Palauttaa yhden rivin tilastotaulukkoon
 const StatisticsLine = (props) => {
   console.log("Creating a statistics line", props.text, props.value)
   return (
-    <div>
-      <p>{props.text} {props.value}</p>
-    </div>
+    <tr>
+      <td>{props.text} </td>
+      <td>{props.value}</td>
+    </tr>
   )
 }
 
-// Tehtävänannossa komponentin nimi on Statistics
+// Tehtävänannossa komponentin nimi on Statistics, mutta ehdin tehdä sen jo edellisessä vaiheessa, joten halusin säilyttää oman uniikin nimen
+// Komponentti palauttaa Unicafen saaman palautteen tilastoina taulukkomuodossa, jos palautetta on annettu
 const TheyDidTheMath = (props) => {
   console.log("Doing 'the math' with", props);
   const sum = props.values.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
@@ -37,18 +41,21 @@ const TheyDidTheMath = (props) => {
   return (
     <div>
       <h2>Statistics</h2>
-      <StatisticsLine text = "Good" value = {props.values[0]}/>
-      <StatisticsLine text = "Neutral" value = {props.values[1]}/>
-      <StatisticsLine text = "Bad" value = {props.values[2]}/>
-      <StatisticsLine text = "All" value = {sum}/>
-      <StatisticsLine text = "Average" value = {avg}/>
-      <StatisticsLine text = "Positive" value = {pos}/>
+      <table>
+        <tbody>
+          <StatisticsLine text = "Good" value = {props.values[0]}/>
+          <StatisticsLine text = "Neutral" value = {props.values[1]}/>
+          <StatisticsLine text = "Bad" value = {props.values[2]}/>
+          <StatisticsLine text = "All" value = {sum}/>
+          <StatisticsLine text = "Average" value = {avg}/>
+          <StatisticsLine text = "Positive" value = {pos}/>
+        </tbody>
+      </table>
     </div>
   )
 }
-
+// Komponentti toimii verkkosivuston runkona ja tallentaa jokaisen painikkeen omaan tilaansa
 const App = () => {
-  // tallenna napit omaan tilaansa
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
