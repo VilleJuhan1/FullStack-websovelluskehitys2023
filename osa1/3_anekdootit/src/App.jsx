@@ -1,11 +1,41 @@
 import { useState } from 'react'
 
+// The Button component
+// props.handleClick contains the function that the button press calls, props.text what the button says
 const Button = (props) => {
   return (
     <button onClick={props.handleClick}>{props.text}</button>
   )
 }
 
+// Renders the random anecdote of the day
+// props.anecdote is the random anecdote sent to the component, props.votes is the amount of votes in the votes list that this anecdote has received
+const AnecdoteOfTheDay = (props) => {
+  return (
+    <div>
+    <h1>Anecdote of the day</h1>
+    <p>{props.anecdote}</p>
+    <p>Anecdote has {props.votes} votes.</p>    
+    </div>
+  )
+}
+
+// Renders the most voted anecdote
+// Receives both the list of anecdotes and the list of votes as props and figures which is the most voted
+const MostVoted = (props) => {
+
+  const maxVotesIndex = props.votes.indexOf(Math.max(...props.votes))
+  const mostVotedAnecdote = props.anecdotes[maxVotesIndex]
+
+  return (
+    <div>
+      <h2>Anecdote with most votes</h2>
+      <p>{mostVotedAnecdote}</p>
+    </div>
+  )
+}
+
+// The main application body
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -18,10 +48,11 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
 
-  const initialVotes = new Uint8Array(anecdotes.length);
-  const [votes, setVotes] = useState(initialVotes);
-  const [selected, setSelected] = useState(0)
+  const initialVotes = new Uint8Array(anecdotes.length) // A new list of 0s the length of the anecdotes list
+  const [votes, setVotes] = useState(initialVotes) // The indexed list of votes that has it's own state
+  const [selected, setSelected] = useState(0) // The currently selected index number for anecdotes which also has it's own state
 
+  // The component to creating the random number between 0 and the length of the anecdotes list
   const randomInt = () => {
     const x = anecdotes.length
     const randomInteger = Math.floor(Math.random() * (x)) 
@@ -29,6 +60,7 @@ const App = () => {
     setSelected(randomInteger)
   }
 
+  // The component handling the voting of anecdotes
   const vote = () => {
     console.log("vote", {selected})
     const newVotes = [...votes]
@@ -37,11 +69,13 @@ const App = () => {
     console.log(newVotes)
   }
 
+  // The output of the webpage
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
+      <AnecdoteOfTheDay anecdote = {anecdotes[selected]} votes = {votes[selected]}/>
       <Button handleClick={vote} text = "Vote"/>
       <Button handleClick={randomInt} text = "New anecdote"/>
+      <MostVoted anecdotes={anecdotes} votes = {votes}/>
     </div>
   )
 }
