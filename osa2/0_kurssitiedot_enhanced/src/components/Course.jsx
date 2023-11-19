@@ -1,7 +1,7 @@
 // Return the string as a h1-header
 const Header = (props) => {
     var courseName = props.name
-    console.log("Käytiin komponentin Course osassa Header, propsit: ", props)
+    console.log("       Header-komponentti: ", props)
     return (
       <div>
         <h1>{courseName}</h1>
@@ -11,7 +11,7 @@ const Header = (props) => {
 
 // Return a single string-representation of the exercise name and the amount of work for it
 const Part = (props) => {
-    console.log(props)
+    console.log("           Part-komponentti, ", props)
     return (
       <div>
         <p>{props.name} {props.exercises}</p>
@@ -22,7 +22,7 @@ const Part = (props) => {
 // Iterates through every exercise in the course
 const Content = (props) => {
     var ex = props.parts
-    console.log(ex);
+    console.log("       Content-komponentti, ", ex)
     return (
       <div>
         {ex.map((object, index) => (
@@ -35,7 +35,7 @@ const Content = (props) => {
 // Accumulate the total amount of exercises
 const Total = (props) => {
     var ex = props.ex
-    console.log(ex)
+    console.log("       Total-komponentti, ", ex)
     const total = ex.reduce((accumulator, object) => accumulator + object.exercises, 0)
     return (
       <div>
@@ -47,8 +47,7 @@ const Total = (props) => {
 // The main component for composing the course details together
 const Course = (props) => {
     var course = props.course
-    console.log("Tässä käydään Course-komponentissa.")
-    console.log("Nämä tuotiin: ", course)
+    console.log("   Course-komponentti, ", course)
 
     return (
         <div>
