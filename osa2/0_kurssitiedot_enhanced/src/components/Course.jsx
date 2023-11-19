@@ -39,7 +39,7 @@ const Total = (props) => {
     const total = ex.reduce((accumulator, object) => accumulator + object.exercises, 0)
     return (
       <div>
-        <p>Number of exercises {total}</p>
+        <b>Number of exercises {total}</b>
       </div>
     )
 }
