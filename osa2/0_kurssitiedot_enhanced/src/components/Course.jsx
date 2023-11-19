@@ -19,19 +19,6 @@ const Part = (props) => {
     )
 }
 
-// Iterates through every exercise in the course
-const Content = (props) => {
-    var ex = props.parts
-    console.log("       Content-komponentti, ", ex)
-    return (
-      <div>
-        {ex.map((object, index) => (
-          <Part key={index} name={object.name} exercises={object.exercises} />
-        ))}
-      </div>
-    )
-}
-
 // Accumulate the total amount of exercises
 const Total = (props) => {
     var ex = props.ex
@@ -40,6 +27,18 @@ const Total = (props) => {
     return (
       <div>
         <b>Number of exercises {total}</b>
+      </div>
+    )
+}
+
+// Iterates through every exercise in the course
+const Content = (props) => {
+    var ex = props.parts
+    console.log("       Content-komponentti, ", ex)
+    return (
+      <div>
+        {ex.map((object, index) => (<Part key={index} name={object.name} exercises={object.exercises} />))}
+        <Total ex = {ex}/>
       </div>
     )
 }
@@ -53,7 +52,6 @@ const Course = (props) => {
         <div>
             <Header name = {course.name}/>
             <Content parts = {course.parts}/>
-            <Total ex = {course.parts}/>
         </div>
     )
 }
