@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import Filter from './components/Filter'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -37,7 +38,7 @@ const App = () => {
       setNewName('');
       setNewPhone('');
     }
-  };
+  }
 
   const Name = (props) => {
     return (
@@ -73,6 +74,7 @@ const App = () => {
         {filteredPersons.map((person, index) => (
             <li key={index}>{person.name} - {person.phone}</li>
           ))}
+        <Filter list={persons} filter={filterByInput}/>
     </div>
   );
 };
