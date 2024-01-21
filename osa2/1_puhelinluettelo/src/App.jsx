@@ -3,6 +3,7 @@ import Filter from './components/Filter'
 import FilterForm from './components/FilterForm'
 import Headers from './components/Headers'
 import NewPersonForm from './components/NewPersonForm'
+import { containerStyle } from './components/styles'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -44,11 +45,15 @@ const App = () => {
   }
 
   return (
-    <div>
+    <div style={containerStyle}>
       <Headers style="h1" text="Phonebook" />
       <FilterForm value={filterByInput} onChange={handleFilterInputChange} />
       <Headers style="h2" text="Add a new person and/or number" />
-      <NewPersonForm newName={newName} newPhone={newPhone} handleAddName={handleAddName} handleAddPhone={handleAddPhone} addPerson={addPerson} />      
+      <NewPersonForm newName={newName} 
+        newPhone={newPhone} 
+        handleAddName={handleAddName} 
+        handleAddPhone={handleAddPhone} 
+        addPerson={addPerson} />      
       <Headers style="h2" text="Numbers" />
       <Filter list={persons} filter={filterByInput}/>
     </div>
