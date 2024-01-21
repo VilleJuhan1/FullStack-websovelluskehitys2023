@@ -1,3 +1,4 @@
+import React from 'react'
 
 const Filter = (props) => {
     const filteredPersons=props.list.filter(person =>
