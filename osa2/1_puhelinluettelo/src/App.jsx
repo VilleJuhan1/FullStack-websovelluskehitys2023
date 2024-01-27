@@ -13,6 +13,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filterByInput, setFilter] = useState('')
 
+  // Read json-array called persons from the server and set it to object 'persons' 
   useEffect(() => {
     console.log('effect')
     axios
@@ -46,9 +47,15 @@ const App = () => {
       alert(`${newName} is already added to phonebook!`)
     } else {
       const newPerson = { name: newName, number: newNumber}
-      setPersons([...persons, newPerson])
-      setNewName('')
-      setNewNumber('')
+      
+      axios
+      .post('http://localhost:3001/persons', newPerson)
+      .then(response => {
+        console.log(response)
+        setPersons([...persons, newPerson])
+        setNewName('')
+        setNewNumber('')
+      })
     }
   }
 
