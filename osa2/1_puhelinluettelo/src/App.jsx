@@ -4,7 +4,8 @@ import FilterForm from './components/FilterForm'
 import Headers from './components/Headers'
 import NewPersonForm from './components/NewPersonForm'
 import { containerStyle } from './components/styles'
-import axios from 'axios'
+//import axios from 'axios'
+import phonebookService from './services/persons'
 
 const App = () => {
 
@@ -16,13 +17,14 @@ const App = () => {
   // Read json-array called persons from the server and set it to object 'persons' 
   useEffect(() => {
     console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
+    phonebookService
+      .getAll()
+      .then(phoneBookData => {
         console.log('promise fulfilled')
-        setPersons(response.data)
+        setPersons(phoneBookData)
       })
   }, [])
+
   console.log('render', persons.length, 'persons')
   console.log(persons)
 
@@ -47,15 +49,15 @@ const App = () => {
       alert(`${newName} is already added to phonebook!`)
     } else {
       const newPerson = { name: newName, number: newNumber}
-      
-      axios
-      .post('http://localhost:3001/persons', newPerson)
-      .then(response => {
-        console.log(response)
-        setPersons([...persons, newPerson])
-        setNewName('')
-        setNewNumber('')
-      })
+
+      phonebookService
+        .create(newPerson)
+          .then(returnedObject => {
+          console.log(returnedObject)
+          setPersons([...persons, returnedObject])
+          setNewName('')
+          setNewNumber('')
+          })
     }
   }
 
