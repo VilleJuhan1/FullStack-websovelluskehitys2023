@@ -6,7 +6,7 @@ const Filter = (props) => {
       )
     return (
         <div>
-            {filteredPersons.map((person, index) => (<p key={index}>{person.name} - {person.phone}</p>))}
+            {filteredPersons.map((person, index) => (<p key={index}>{person.name} - {person.number}</p>))}
         </div>
     )
 }

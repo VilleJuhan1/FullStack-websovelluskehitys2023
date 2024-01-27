@@ -1,4 +1,3 @@
-// styles.js
 const containerStyle = {
     display: 'flex',
     flexDirection: 'column',
@@ -12,5 +11,5 @@ const containerStyle = {
     margin: '20px auto',
   }
   
-  export { containerStyle };
+  export { containerStyle }
   
