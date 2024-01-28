@@ -11,12 +11,16 @@ const create = newPerson => {
   return request.then(response => response.data)
 }
 
-//const update = (id, newObject) => {
-//  return axios.put(`${baseUrl}/${id}`, newObject)
-//}
+const deleteContact = async (contactId) => {
+    try {
+      await axios.delete(`${baseUrl}/${contactId}`)
+    } catch (error) {
+      console.error('Error deleting contact:', error);
+    }
+  }
 
 export default { 
   getAll: getAll, 
-  create: create, 
-  //update: update 
+  create: create,
+  deleteContact: deleteContact
 }

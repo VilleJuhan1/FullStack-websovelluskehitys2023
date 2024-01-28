@@ -4,8 +4,7 @@ import FilterForm from './components/FilterForm'
 import Headers from './components/Headers'
 import NewPersonForm from './components/NewPersonForm'
 import { containerStyle } from './components/styles'
-//import axios from 'axios'
-import phonebookService from './services/persons'
+import phonebookService from './services/dbService'
 
 const App = () => {
 
@@ -14,7 +13,6 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filterByInput, setFilter] = useState('')
 
-  // Read json-array called persons from the server and set it to object 'persons' 
   useEffect(() => {
     console.log('effect')
     phonebookService
@@ -60,6 +58,25 @@ const App = () => {
           })
     }
   }
+  const deletePerson = async (id) => {
+    event.preventDefault
+    console.log(id)
+
+    const shouldDelete = window.confirm('Are you sure you want to delete this contact?');
+    if (shouldDelete) {
+      try {
+        await phonebookService.deleteContact(id);
+        console.log('Deleted person id: ', id)
+        setPersons(persons.filter(person => person.id !== id));
+      } catch (error) {
+        console.error('Error deleting contact:', error);
+      }
+    }
+    else {
+      console.log('Nothing deleted.')
+    }
+
+  }
 
   return (
     <div style={containerStyle}>
@@ -72,7 +89,9 @@ const App = () => {
         handleAddNumber={handleAddNumber} 
         addPerson={addPerson} />      
       <Headers style="h2" text="Numbers" />
-      <Filter list={persons} filter={filterByInput}/>
+      <Filter list={persons} 
+        filter={filterByInput}
+        deletePerson={deletePerson} />
     </div>
   )
 }
