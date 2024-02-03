@@ -1,3 +1,5 @@
+
+// Määritellään, millaisena puhelinluettelo näkyy sovelluksessa
 const containerStyle = {
     display: 'flex',
     flexDirection: 'column',

@@ -40,24 +40,46 @@ const App = () => {
     console.log(event.target.value)
     setFilter(event.target.value)
   }
+
+  // Henkilön lisääminen ja erottelu sille lisätäänkö uutta henkilöä vai päivitetäänkö vanha
   const addPerson = (event) => {
     event.preventDefault()
 
+    // Jos henkilö on jo luettelossa, varmistetaan, halutaanko päivittää tiedot
     if (persons.some(person => person.name === newName)) {
-      alert(`${newName} is already added to phonebook!`)
+      const userConfirmed = window.confirm(`${newName} already exists. Do you want to update their information?`)
+
+      // Mikäli halutaan päivittää tiedot, etsitään päivitettävän henkilön id luettelosta ja toimitetaan se päivityskomponentille
+      if (userConfirmed) {
+        const existingPerson = persons.find(person => person.name === newName)
+        const updatePerson = { name: newName, number: newNumber }
+
+        phonebookService
+          .update(existingPerson.id, updatePerson)
+            .then(returnedObject => {
+              console.log('Henkilö päivitetty', returnedObject)
+              setPersons(persons.map(person => (person.id === returnedObject.id ? returnedObject : person)))
+              setNewName('')
+              setNewNumber('')
+            })
+      }
+    
+    // Mikäli henkilöä ei löydy luettelosta, lisätään se
     } else {
       const newPerson = { name: newName, number: newNumber}
 
       phonebookService
         .create(newPerson)
           .then(returnedObject => {
-          console.log(returnedObject)
+          console.log('Henkilö lisätty', returnedObject)
           setPersons([...persons, returnedObject])
           setNewName('')
           setNewNumber('')
           })
     }
   }
+
+  // Poistetaan henkilö käyttäen id:tä tunnisteena
   const deletePerson = async (id) => {
     event.preventDefault
     console.log(id)
@@ -66,18 +88,19 @@ const App = () => {
     if (shouldDelete) {
       try {
         await phonebookService.deleteContact(id);
-        console.log('Deleted person id: ', id)
+        console.log('Henkilö poistettu: ', id)
         setPersons(persons.filter(person => person.id !== id));
       } catch (error) {
-        console.error('Error deleting contact:', error);
+        console.error('Virhe poistettaessa henkilöä:', error);
       }
     }
     else {
-      console.log('Nothing deleted.')
+      console.log('Ketään ei poistettu')
     }
 
   }
 
+  // Sovelluksen käyttöliittymän runko
   return (
     <div style={containerStyle}>
       <Headers style="h1" text="Phonebook" />

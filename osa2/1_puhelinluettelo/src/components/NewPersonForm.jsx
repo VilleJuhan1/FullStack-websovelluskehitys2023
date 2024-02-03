@@ -1,5 +1,6 @@
 import React from 'react'
 
+// Määritellään uuden henkilön lisäämisen elementit ja niiden muotoilut
 const NewPersonForm = ({ newName, newNumber, handleAddName, handleAddNumber, addPerson }) => {
   return (
     <form onSubmit={addPerson}>

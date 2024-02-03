@@ -1,7 +1,8 @@
 import React from 'react'
 
+// Määritellään otsikkokomponentti, jolle annetaan parametrina haluttu koko
 const Headers = (props) => {
-    
+
   const style = props.style
   const text = props.text
   const headerTags = {
