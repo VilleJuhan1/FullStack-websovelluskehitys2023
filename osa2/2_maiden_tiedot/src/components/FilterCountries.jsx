@@ -1,4 +1,5 @@
 import React from 'react'
+import Weather from './Weather'
 
 // Suodatin muuntaa sekä maiden nimet että syötteen pieniksi kirjaimiksi ja vertaa niitä keskenään
 const FilterCountries = (props) => {
@@ -7,6 +8,7 @@ const FilterCountries = (props) => {
       )
 
     // Palautetaan joko ilmoitus, että maita ei löytynyt, yksittäisen maan tiedot tai lista suodatetuista maiden nimistä
+    // Tekijän huomio: Liian monen maan "virheilmoituksen" olisi voinut toteuttaa, kuten 0 maan, mutta jätin maat ikään kuin vinkkeinä käyttäjälle
     if (filteredCountries.length === 0) {
       return <p>No countries found based on criteria.</p>
     } else if (filteredCountries.length === 1) {
@@ -21,9 +23,15 @@ const FilterCountries = (props) => {
       return (
         <div>
           <h1>{country.name.common}</h1>
+          <img
+          src={country.flags.png}
+          alt={country.flags.alt}
+          style={{ maxWidth: '50%', height: 'auto' }}
+          />
           <ul className='no-bullets'>
             <li>Capital: {country.capital}</li>
             <li>Area: {country.area} km2</li>
+            <li>Population: {country.population}</li>
           </ul>
           <h2>Languages</h2>
           <ul className='no-bullets'>
@@ -31,12 +39,7 @@ const FilterCountries = (props) => {
               <li key={code}>{`${name}`}</li>
             ))}
           </ul>
-          <h2>Flag</h2>
-          <img
-          src={country.flags.png}
-          alt={country.flags.alt}
-          style={{ maxWidth: '50%', height: 'auto' }}
-          />
+          <Weather capital={country.capital} coordinates={country.capitalInfo} />
           <p>
             <a href={country.maps.googleMaps} target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
           </p>
