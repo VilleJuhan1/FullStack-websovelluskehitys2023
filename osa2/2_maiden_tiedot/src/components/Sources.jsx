@@ -1,6 +1,7 @@
 import React from "react"
 import '../App.css'
 
+// Käytetyt lähteet muotoiltuna, sijainti sivun alalaidassa viimeisenä
 const Sources = () => {
   return (
 		<p className="read-the-docs">

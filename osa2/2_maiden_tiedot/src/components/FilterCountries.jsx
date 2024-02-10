@@ -1,31 +1,36 @@
 import React from 'react'
 import Weather from './Weather'
 
-// Suodatin muuntaa sekä maiden nimet että syötteen pieniksi kirjaimiksi ja vertaa niitä keskenään
+// Palautetaan sovelluksen varsinainen sisältö (ilmoitus, lista maita tai yhden maan tiedot)
 const FilterCountries = (props) => {
     console.log(props)
+    // Käsitellään kaikki maat ja järjestetään ne aakkosittain
     const filteredCountries=props.countries.filter(country =>
         country.name.common.toLowerCase().includes(props.filter.toLowerCase())
       )
+    
+    // Käsitellään painikkeen klikkaus eli tilanne, jossa käyttäjä valitsee maan listalta hiirellä
+    // Siirretään klikatun maan nimi suoraan filteriin niin, että maan tiedot tulevat näkyville
     const handleClick = (country) => {
       props.onChange(country)
     }
 
-    // Palautetaan joko ilmoitus, että maita ei löytynyt, yksittäisen maan tiedot tai lista suodatetuista maiden nimistä
-    // Tekijän huomio: Liian monen maan "virheilmoituksen" olisi voinut toteuttaa, kuten 0 maan, mutta jätin maat ikään kuin vinkkeinä käyttäjälle
+    // Verrataan hakukriteerejä listaan maita
+    // Maita ei löytynyt hakukriteereillä
     if (filteredCountries.length === 0) {
       return <p>No countries found based on criteria</p>
+
+    // Maita on liikaa, yli 10
     } else if (filteredCountries.length >= 10) {
-      return <p>Try to narrow your search down a bit more</p>
+      return <p>Try to narrow down your search a bit more</p>
+
+    // Vain yksi maa täyttää hakuehdot, joten tuodaan halutut tiedot sovellukseen
     } else if (filteredCountries.length === 1) {
+      console.log('Valittu maa:', filteredCountries[0].name.common)
+      const country = filteredCountries[0]
+      const languages = Object.entries(country.languages)
 
-    console.log('Valittu maa:', filteredCountries[0].name.common)
-
-    const country = filteredCountries[0]
-    const languages = Object.entries(country.languages)
-
-    // Palauttaa yhteen maahan liittyvät tiedot
-    // Tämä pitää muuttaa omaksi komponentiksi jossain vaiheessa
+      // Palauttaa yhteen maahan liittyvät tiedot
       return (
         <div>
           <h1>{country.name.common}</h1>
@@ -49,6 +54,8 @@ const FilterCountries = (props) => {
           <p><a href={country.maps.googleMaps} target="_blank" rel="noopener noreferrer">Open in Google Maps</a></p>
         </div>
       )
+    
+    // Mikäli mikään edellä olevista ei toteudu, tulostetaan klikattava lista, jossa on maat, joihin kriteerit sopivat 
     } else {
       return (
         <div>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-// Komponentti, johon voidaan syöttää haluttu merkkijono suodattamaan luettelon maat
+// Teksti-ikkunan rakenne ja komponentit sovelluksessa
 const FilterForm = (props) => {
     return (
         <form>

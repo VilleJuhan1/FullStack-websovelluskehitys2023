@@ -6,10 +6,12 @@ import Header from './components/Header'
 import Sources from './components/Sources'
 import './App.css'
 
+// Sovellus hakee maiden tietoja ja antaa käyttäjälle perustiedot hänen haluamastaan maasta
 function App() {
   const [countries, setCountries] = useState([]);
   const [filterByInput, setFilter] = useState('')
 
+  // Haetaan tiedot Helsingin yliopiston API-rajapinnasta
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,16 +31,19 @@ function App() {
     return nameA.localeCompare(nameB);
   });
 
+  // Käsitellään muutos teksti-ikkunan inputissa jokaisen merkin jälkeen
   const handleFilterInputChange = (event) => {
     console.log(event.target.value)
     setFilter(event.target.value)
   }
 
+  // Käsitellään tilanne, jossa käyttäjä valitsee haluamansa maan ja asetetaan maan nimi teksti-ikkunaan
   const changeFilterByClick = (props) => {
     console.log('Yritetään muuttaa filteri:', props)
     setFilter(props)
   }
 
+  // Sovelluksen alakomponentit, jotka näkyvät käyttäjälle
   return (
     <div>
       <Header/>

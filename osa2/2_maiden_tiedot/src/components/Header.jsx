@@ -1,6 +1,7 @@
 import React from 'react'
 import reactLogo from '../assets/react.svg'
 
+// Kaikki sovelluksen sisältö ennen teksti-ikkunaa
 const Header = () => {
   return (
 		<div>
