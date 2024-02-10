@@ -11,6 +11,8 @@ const FilterCountries = (props) => {
     // Tekijän huomio: Liian monen maan "virheilmoituksen" olisi voinut toteuttaa, kuten 0 maan, mutta jätin maat ikään kuin vinkkeinä käyttäjälle
     if (filteredCountries.length === 0) {
       return <p>No countries found based on criteria.</p>
+    } else if (filteredCountries.length >= 10) {
+      return <p>Try to narrow your search down a bit more.</p>
     } else if (filteredCountries.length === 1) {
 
     console.log('Valittu maa:', filteredCountries[0].name.common)
@@ -48,6 +50,7 @@ const FilterCountries = (props) => {
     } else {
       return (
         <div>
+          <h3>Matches:</h3>
           <ul className='no-bullets'>
             {filteredCountries.map(country => (
               <li key={country.cca3}>{country.name.common}</li>

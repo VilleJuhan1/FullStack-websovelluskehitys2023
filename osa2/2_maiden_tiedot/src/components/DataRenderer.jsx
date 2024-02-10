@@ -1,4 +1,3 @@
-// DataRenderer.js
 import React from 'react';
 
 const DataRenderer = ({ data }) => {
@@ -7,11 +6,10 @@ const DataRenderer = ({ data }) => {
 	const weatherIconCode = data && data.weather && data.weather.length > 0 ? data.weather[0].icon : null
 	const weatherIconUrl = weatherIconCode ? `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png` : null
 
-
+	// Palautetaan säätiedot (lämpötila ja sääikoni), mikäli mahdollista. Käsitellään mahdolliset virheet (null)
   return (
     <div>
       {data ? (
-        // Render your component with the fetched data
         temperature !== null ? (
 					<div>
           <p>Temperature: {temperature.toFixed(1)}&#176;C</p>
@@ -20,9 +18,7 @@ const DataRenderer = ({ data }) => {
         ) : (
           <p>No temperature data available</p>
         )
-
       ) : (
-        // Render loading or placeholder content while waiting for data
         <p>Loading...</p>
       )}
     </div>

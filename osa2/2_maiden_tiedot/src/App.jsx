@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import reactLogo from './assets/react.svg'
 import FilterCountries from './components/FilterCountries'
 import FilterForm from './components/FilterForm'
 import Header from './components/Header'
