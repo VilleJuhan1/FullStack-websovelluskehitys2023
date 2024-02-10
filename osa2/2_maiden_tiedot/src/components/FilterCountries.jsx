@@ -8,16 +8,15 @@ const FilterCountries = (props) => {
         country.name.common.toLowerCase().includes(props.filter.toLowerCase())
       )
     const handleClick = (country) => {
-      console.log('Yritetään linkkiä', {country})
       props.onChange(country)
     }
 
     // Palautetaan joko ilmoitus, että maita ei löytynyt, yksittäisen maan tiedot tai lista suodatetuista maiden nimistä
     // Tekijän huomio: Liian monen maan "virheilmoituksen" olisi voinut toteuttaa, kuten 0 maan, mutta jätin maat ikään kuin vinkkeinä käyttäjälle
     if (filteredCountries.length === 0) {
-      return <p>No countries found based on criteria.</p>
+      return <p>No countries found based on criteria</p>
     } else if (filteredCountries.length >= 10) {
-      return <p>Try to narrow your search down a bit more.</p>
+      return <p>Try to narrow your search down a bit more</p>
     } else if (filteredCountries.length === 1) {
 
     console.log('Valittu maa:', filteredCountries[0].name.common)
@@ -47,9 +46,7 @@ const FilterCountries = (props) => {
             ))}
           </ul>
           <Weather capital={country.capital} coordinates={country.capitalInfo} />
-          <p>
-            <a href={country.maps.googleMaps} target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
-          </p>
+          <p><a href={country.maps.googleMaps} target="_blank" rel="noopener noreferrer">Open in Google Maps</a></p>
         </div>
       )
     } else {

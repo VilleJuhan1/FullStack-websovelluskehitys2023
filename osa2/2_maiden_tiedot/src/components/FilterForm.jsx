@@ -4,8 +4,8 @@ import React from 'react'
 const FilterForm = (props) => {
     return (
         <form>
-        <div>
-          <input type="text" value={props.value} onChange={props.onChange} />
+        <div style={{ textAlign: 'center' }}>
+          <input type="text" value={props.value} onChange={props.onChange} style={{ margin: '0 auto', textAlign: 'center' }}/>
         </div>
       </form>
     )
