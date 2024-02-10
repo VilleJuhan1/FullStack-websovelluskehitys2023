@@ -3,9 +3,14 @@ import Weather from './Weather'
 
 // Suodatin muuntaa sekä maiden nimet että syötteen pieniksi kirjaimiksi ja vertaa niitä keskenään
 const FilterCountries = (props) => {
+    console.log(props)
     const filteredCountries=props.countries.filter(country =>
         country.name.common.toLowerCase().includes(props.filter.toLowerCase())
       )
+    const handleClick = (country) => {
+      console.log('Yritetään linkkiä', {country})
+      props.onChange(country)
+    }
 
     // Palautetaan joko ilmoitus, että maita ei löytynyt, yksittäisen maan tiedot tai lista suodatetuista maiden nimistä
     // Tekijän huomio: Liian monen maan "virheilmoituksen" olisi voinut toteuttaa, kuten 0 maan, mutta jätin maat ikään kuin vinkkeinä käyttäjälle
@@ -53,7 +58,11 @@ const FilterCountries = (props) => {
           <h3>Matches:</h3>
           <ul className='no-bullets'>
             {filteredCountries.map(country => (
-              <li key={country.cca3}>{country.name.common}</li>
+              <li key={country.cca3}>
+                <a href="#" onClick={() => { handleClick(country.name.common) }}>
+                {country.name.common}<br/>
+              </a>
+            </li>
             ))}
           </ul>
         </div>

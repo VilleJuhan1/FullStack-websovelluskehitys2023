@@ -29,16 +29,21 @@ function App() {
     return nameA.localeCompare(nameB);
   });
 
-  const handleFilterInputChange = () => {
+  const handleFilterInputChange = (event) => {
     console.log(event.target.value)
     setFilter(event.target.value)
+  }
+
+  const changeFilterByClick = (props) => {
+    console.log('Yritetään muuttaa filteri:', props)
+    setFilter(props)
   }
 
   return (
     <div>
       <Header/>
       <FilterForm value={filterByInput} onChange={handleFilterInputChange} />
-      <FilterCountries countries={sortedCountries} filter={filterByInput}/>
+      <FilterCountries countries={sortedCountries} filter={filterByInput} onChange={changeFilterByClick}/>
       <Sources/>
     </div>
   )
