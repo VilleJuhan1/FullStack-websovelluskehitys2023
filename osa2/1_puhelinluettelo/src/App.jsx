@@ -5,6 +5,9 @@ import Headers from './components/Headers'
 import NewPersonForm from './components/NewPersonForm'
 import { containerStyle } from './components/styles'
 import phonebookService from './services/dbService'
+import Notification from './components/Notification'
+import Error from './components/Error'
+import "./index.css"
 
 const App = () => {
 
@@ -12,6 +15,8 @@ const App = () => {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('')
   const [filterByInput, setFilter] = useState('')
+  const [noteMessage, setNoteMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     console.log('effect')
@@ -55,13 +60,36 @@ const App = () => {
         const updatePerson = { name: newName, number: newNumber }
 
         phonebookService
-          .update(existingPerson.id, updatePerson)
-            .then(returnedObject => {
-              console.log('Henkilö päivitetty', returnedObject)
-              setPersons(persons.map(person => (person.id === returnedObject.id ? returnedObject : person)))
-              setNewName('')
-              setNewNumber('')
-            })
+        .update(existingPerson.id, updatePerson)
+        .then(returnedObject => {
+          console.log('Henkilö päivitetty', returnedObject)
+          setNoteMessage(`Updated '${returnedObject.name}'`)
+          setTimeout(() => {
+            setNoteMessage(null)
+          }, 5000);
+          setPersons(persons.map(person => (person.id === returnedObject.id ? returnedObject : person)))
+          setNewName('')
+          setNewNumber('')
+        })
+        .catch(error => {
+          console.error('Virhe päivitettäessä henkilöä:', error)
+          setErrorMessage(
+            `Information on '${newName}' has already been removed from the server by another user. `
+            + `If you want, you can add '${newName}' by pressing Add-button again.`
+          )
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 20000)
+          phonebookService
+          .getAll()
+          .then(phoneBookData => {
+            console.log('Updated data fetched from the server')
+            setPersons(phoneBookData)
+          })
+          .catch(error => {
+            console.error('Error fetching updated data from the server:', error)
+          })
+        })
       }
     
     // Mikäli henkilöä ei löydy luettelosta, lisätään se
@@ -72,6 +100,12 @@ const App = () => {
         .create(newPerson)
           .then(returnedObject => {
           console.log('Henkilö lisätty', returnedObject)
+          setNoteMessage(
+            `Added '${returnedObject.name}'`
+          )
+          setTimeout(() => {
+            setNoteMessage(null)
+          }, 5000)
           setPersons([...persons, returnedObject])
           setNewName('')
           setNewNumber('')
@@ -89,6 +123,12 @@ const App = () => {
       try {
         await phonebookService.deleteContact(id);
         console.log('Henkilö poistettu: ', id)
+        setNoteMessage(
+          `Contact deleted`
+        )
+        setTimeout(() => {
+          setNoteMessage(null)
+        }, 5000)
         setPersons(persons.filter(person => person.id !== id));
       } catch (error) {
         console.error('Virhe poistettaessa henkilöä:', error);
@@ -103,6 +143,8 @@ const App = () => {
   // Sovelluksen käyttöliittymän runko
   return (
     <div style={containerStyle}>
+      <Notification message={noteMessage} />
+      <Error message={errorMessage} />
       <Headers style="h1" text="Phonebook" />
       <FilterForm value={filterByInput} onChange={handleFilterInputChange} />
       <Headers style="h2" text="Add a new person and/or number" />
