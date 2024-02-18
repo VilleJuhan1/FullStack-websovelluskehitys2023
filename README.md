@@ -1,1 +1,3 @@
-# Full Stack -websovelluskehitys 2023
+# Full Stack -websovelluskehitys
+
+Exercise submissions for the MOOC-course [Full-Stack Open](https://fullstackopen.com)

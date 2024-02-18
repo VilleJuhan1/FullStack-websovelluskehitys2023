@@ -75,7 +75,7 @@ const App = () => {
           console.error('Virhe päivitettäessä henkilöä:', error)
           setErrorMessage(
             `Information on '${newName}' has already been removed from the server by another user. `
-            + `If you want, you can add '${newName}' by pressing Add-button again.`
+            + `If you want to, you can add '${newName}' by pressing Add-button again.`
           )
           setTimeout(() => {
             setErrorMessage(null)
@@ -118,10 +118,10 @@ const App = () => {
     event.preventDefault
     console.log(id)
 
-    const shouldDelete = window.confirm('Are you sure you want to delete this contact?');
+    const shouldDelete = window.confirm('Are you sure you want to delete this contact?')
     if (shouldDelete) {
       try {
-        await phonebookService.deleteContact(id);
+        await phonebookService.deleteContact(id)
         console.log('Henkilö poistettu: ', id)
         setNoteMessage(
           `Contact deleted`
@@ -129,9 +129,9 @@ const App = () => {
         setTimeout(() => {
           setNoteMessage(null)
         }, 5000)
-        setPersons(persons.filter(person => person.id !== id));
+        setPersons(persons.filter(person => person.id !== id))
       } catch (error) {
-        console.error('Virhe poistettaessa henkilöä:', error);
+        console.error('Virhe poistettaessa henkilöä:', error)
       }
     }
     else {
